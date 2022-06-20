@@ -1,7 +1,7 @@
 package model
 
 type UserBasic struct {
-	Id       int
+	Id       uint64
 	Identity string
 	Name     string
 	Password string

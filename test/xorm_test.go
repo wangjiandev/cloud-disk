@@ -2,6 +2,7 @@ package test
 
 import (
 	"bytes"
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"testing"
@@ -35,4 +36,9 @@ func TestXorm(t *testing.T) {
 	}
 	fmt.Println(dst.String())
 
+}
+
+func TestMd5(t *testing.T) {
+	p := fmt.Sprintf("%x", md5.Sum([]byte("123456")))
+	fmt.Println(p)
 }
