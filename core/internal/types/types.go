@@ -2,8 +2,8 @@
 package types
 
 type LoginRequest struct {
-	Name     string `path:"name"`
-	Password string `path:"password"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
 }
 
 type LoginResponse struct {

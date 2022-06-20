@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"wangjiandev/cloud-disk/core/helper"
 	"wangjiandev/cloud-disk/core/internal/svc"
@@ -13,24 +12,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type UserLogic struct {
+type UserLoginLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLogic {
-	return &UserLogic{
+func NewUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserLoginLogic {
+	return &UserLoginLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *UserLogic) User(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
-
-	fmt.Println(req.Name)
-	fmt.Println(req.Password)
+func (l *UserLoginLogic) UserLogin(req *types.LoginRequest) (resp *types.LoginResponse, err error) {
 
 	// 数据库查询用户
 	user := new(model.UserBasic)
@@ -47,6 +43,7 @@ func (l *UserLogic) User(req *types.LoginRequest) (resp *types.LoginResponse, er
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.LoginResponse{
 		Token: token,
 	}, nil

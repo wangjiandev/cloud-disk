@@ -16,8 +16,7 @@ func Md5(s string) string {
 // 生成token
 func GenerateToken(id uint64, identity string, name string) (string, error) {
 	uc := define.UserClaim{}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, uc)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
 	signedString, err := token.SignedString([]byte(define.Jwtkey))
 	if err != nil {
 		return "", err
