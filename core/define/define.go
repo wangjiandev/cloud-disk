@@ -10,3 +10,4 @@ type UserClaim struct {
 }
 
 var Jwtkey = "cloud-disk-key"
+var MailKey = "XJEPJMFVQLIHTWLF"

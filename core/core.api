@@ -1,3 +1,4 @@
+//================用户登录==================
 type LoginRequest {
 	Name     string `json:"name"`
 	Password string `json:"password"`
@@ -6,8 +7,25 @@ type LoginRequest {
 type LoginResponse {
 	Token string `json:"token"`
 }
+//================用户登录==================
+//================用户详情==================
+type InfoRequest {
+	Identity string `json:"identity"`
+}
+
+type InfoResponse {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+//================用户详情==================
 
 service core-api {
+	
+	@doc "用户登录"
 	@handler UserLogin
 	post /user/login(LoginRequest) returns (LoginResponse)
+	
+	@doc "用户详情"
+	@handler UserInfo
+	get /user/info(InfoRequest) returns (InfoResponse)
 }
