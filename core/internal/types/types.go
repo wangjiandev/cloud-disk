@@ -18,3 +18,11 @@ type InfoResponse struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+type MailCodeSendRequest struct {
+	Email string `json:"email"`
+}
+
+type MailCodeSendResponse struct {
+	Message string `json:"message"`
+}

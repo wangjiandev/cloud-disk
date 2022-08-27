@@ -18,7 +18,15 @@ type InfoResponse {
 	Email string `json:"email"`
 }
 //================用户详情==================
+//================发送邮箱验证码==================
+type MailCodeSendRequest {
+	Email string `json:"email"`
+}
 
+type MailCodeSendResponse {
+	Message string `json:"message"`
+}
+//================发送邮箱验证码==================
 service core-api {
 	
 	@doc "用户登录"
@@ -28,4 +36,8 @@ service core-api {
 	@doc "用户详情"
 	@handler UserInfo
 	get /user/info(InfoRequest) returns (InfoResponse)
+	
+	@doc "发送邮箱验证码"
+	@handler MailCodeSend
+	post /mail/code/send(MailCodeSendRequest) returns (MailCodeSendResponse)
 }

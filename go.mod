@@ -3,8 +3,10 @@ module wangjiandev/cloud-disk
 go 1.18
 
 require (
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-redis/redis/v9 v9.0.0-beta.2
 	github.com/golang-jwt/jwt/v4 v4.4.1
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
+	github.com/lib/pq v1.10.6
 	github.com/zeromicro/go-zero v1.3.4
 	xorm.io/xorm v1.3.1
 )
@@ -12,6 +14,7 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -19,7 +22,6 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/justinas/alice v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
