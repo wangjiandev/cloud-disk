@@ -1,3 +1,9 @@
 Name: core-api
 Host: 0.0.0.0
 Port: 8888
+
+Postgres:
+  DataSource: postgresql://wangjian:123456@127.0.0.1:5432/cloud-disk?sslmode=disable
+
+Redis:
+  Addr: localhost:6379

@@ -7,11 +7,8 @@ import (
 	"xorm.io/xorm"
 )
 
-var Engine = Init()
-var RDB = InitRedis()
-
-func Init() *xorm.Engine {
-	engine, err := xorm.NewEngine("postgres", "postgresql://wangjian:123456@127.0.0.1:5432/cloud-disk?sslmode=disable")
+func Init(dataSource string) *xorm.Engine {
+	engine, err := xorm.NewEngine("postgres", dataSource)
 	if err != nil {
 		logx.Error("xorm NewEngine Fatal %v", err)
 		return nil
@@ -19,9 +16,9 @@ func Init() *xorm.Engine {
 	return engine
 }
 
-func InitRedis() *redis.Client {
+func InitRedis(addr string) *redis.Client {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     addr,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

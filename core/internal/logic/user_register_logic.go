@@ -28,9 +28,10 @@ func NewUserRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *User
 }
 
 func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *types.UserRegisterResponse, err error) {
-	s, err := model.RDB.Get(l.ctx, req.Email).Result()
+	s, err := l.svcCtx.RDB.Get(l.ctx, req.Email).Result()
 	if err != nil {
-		return nil, err
+		err = errors.New("验证码不存在")
+		return
 	}
 	if s != req.Code {
 		err = errors.New("验证码错误")
@@ -38,7 +39,7 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 	}
 
 	// 判断用户是否存在
-	count, err := model.Engine.Where("name = ?", req.Name).Count(&model.UserBasic{})
+	count, err := l.svcCtx.Engine.Where("name = ?", req.Name).Count(&model.UserBasic{})
 	if err != nil {
 		return nil, err
 	}
@@ -53,11 +54,15 @@ func (l *UserRegisterLogic) UserRegister(req *types.UserRegisterRequest) (resp *
 		Email:    req.Email,
 		Password: helper.Md5(req.Password),
 	}
-	i, err := model.Engine.Insert(user)
+	_, err = l.svcCtx.Engine.Insert(user)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(i)
+	// 注册成功后删除验证码
+	_, err = l.svcCtx.RDB.Del(l.ctx, req.Email).Result()
+	if err != nil {
+		fmt.Println(err)
+	}
 	return &types.UserRegisterResponse{
 		Message: "注册成功",
 	}, nil
