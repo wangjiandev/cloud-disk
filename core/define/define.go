@@ -11,3 +11,7 @@ type UserClaim struct {
 
 var Jwtkey = "cloud-disk-key"
 var MailKey = "XJEPJMFVQLIHTWLF"
+
+// 腾讯云的OSS对象存储密钥
+var SecretID = "AKIDtc5HEwNXQ4QVJsGNBj13oIWT9YhZBWbP"
+var SecretKey = "XonWy93i5B0Zrsc4GBqDLDzUjBQP7Zlg"
