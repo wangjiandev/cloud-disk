@@ -29,6 +29,17 @@ func NewMailCodeSendLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Mail
 }
 
 func (l *MailCodeSendLogic) MailCodeSend(req *types.MailCodeSendRequest) (resp *types.MailCodeSendResponse, err error) {
+
+	// 查询当前邮箱有没有注册
+	count, err := model.Engine.Where("email = ?", req.Email).Count(new(model.UserBasic))
+	if err != nil {
+		return nil, err
+	}
+	if count > 0 {
+		err = errors.New("该邮箱已被注册")
+		return nil, err
+	}
+
 	code := helper.RandCode()
 	model.RDB.Set(l.ctx, req.Email, code, time.Second*time.Duration(300))
 	err = helper.EmailSendCode(req.Email, code)

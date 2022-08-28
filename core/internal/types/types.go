@@ -26,3 +26,14 @@ type MailCodeSendRequest struct {
 type MailCodeSendResponse struct {
 	Message string `json:"message"`
 }
+
+type UserRegisterRequest struct {
+	Email    string `json:"email"`
+	Name     string `json:"name"`
+	Password string `json:"password"`
+	Code     string `json:"code"`
+}
+
+type UserRegisterResponse struct {
+	Message string `json:"message"`
+}

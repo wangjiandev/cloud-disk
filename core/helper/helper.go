@@ -11,6 +11,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/jordan-wright/email"
+	uuid "github.com/satori/go.uuid"
 )
 
 // 生成MD5
@@ -51,4 +52,9 @@ func RandCode() string {
 		code += string(s[rand.Intn(len(s))])
 	}
 	return code
+}
+
+func RandUUID() string {
+	s := uuid.NewV4()
+	return s.String()
 }
