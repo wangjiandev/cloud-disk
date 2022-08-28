@@ -3,7 +3,7 @@ package model
 import "time"
 
 type UserBasic struct {
-	Id        uint64 `xorm:"not null pk autoincr INTEGER"`
+	Id        int64 `xorm:"not null pk autoincr INTEGER"`
 	Identity  string
 	Name      string
 	Password  string

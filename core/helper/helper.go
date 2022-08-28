@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/md5"
 	"crypto/tls"
+	"errors"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -25,7 +26,7 @@ func Md5(s string) string {
 }
 
 // 生成token
-func GenerateToken(id uint64, identity string, name string) (string, error) {
+func GenerateToken(id int64, identity string, name string) (string, error) {
 	uc := define.UserClaim{}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, uc)
 	signedString, err := token.SignedString([]byte(define.Jwtkey))
@@ -33,6 +34,23 @@ func GenerateToken(id uint64, identity string, name string) (string, error) {
 		return "", err
 	}
 	return signedString, nil
+}
+
+// 解析token
+func AnzlyzeToken(token string) (*define.UserClaim, error) {
+	uc := &define.UserClaim{}
+	claim, err := jwt.ParseWithClaims(token, uc, func(token *jwt.Token) (interface{}, error) {
+		return []byte(define.Jwtkey), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if !claim.Valid {
+		return uc, errors.New("token is invalid")
+	}
+
+	return uc, err
 }
 
 func EmailSendCode(mailAddress string, code string) error {
