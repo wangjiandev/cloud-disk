@@ -1,17 +1,22 @@
 package helper
 
 import (
+	"context"
 	"crypto/md5"
 	"crypto/tls"
 	"fmt"
 	"math/rand"
+	"net/http"
 	"net/smtp"
+	"net/url"
+	"path"
 	"time"
 	"wangjiandev/cloud-disk/core/define"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/jordan-wright/email"
 	uuid "github.com/satori/go.uuid"
+	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
 // 生成MD5
@@ -57,4 +62,27 @@ func RandCode() string {
 func RandUUID() string {
 	s := uuid.NewV4()
 	return s.String()
+}
+
+func CosUpload(r *http.Request) (string, error) {
+	u, _ := url.Parse(define.CosBucketDomain)
+	b := &cos.BaseURL{BucketURL: u}
+	c := cos.NewClient(b, &http.Client{
+		Transport: &cos.AuthorizationTransport{
+			SecretID:  define.SecretID,
+			SecretKey: define.SecretKey,
+		},
+	})
+
+	file, fileHeader, err := r.FormFile("file")
+	if err != nil {
+		panic(err)
+	}
+	key := "cloud-disk/" + RandUUID() + path.Ext(fileHeader.Filename)
+	// 通过文件流上传对象
+	_, err = c.Object.Put(context.Background(), key, file, nil)
+	if err != nil {
+		panic(err)
+	}
+	return define.CosBucketDomain + "/" + key, nil
 }

@@ -7,6 +7,8 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/lib/pq v1.10.6
+	github.com/satori/go.uuid v1.2.0
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.38
 	github.com/zeromicro/go-zero v1.3.4
 	xorm.io/xorm v1.3.1
 )
@@ -39,10 +41,8 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
-	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.38 // indirect
 	go.opentelemetry.io/otel v1.7.0 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.7.0 // indirect
 	go.opentelemetry.io/otel/exporters/zipkin v1.7.0 // indirect

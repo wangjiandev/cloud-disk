@@ -39,6 +39,19 @@ type UserRegisterResponse {
 	Message string `json:"message"`
 }
 //================发送邮箱验证码==================
+
+type FileUploadRequest {
+	Hash string `json:"hash,optional"`
+	Name string `json:"name,optional"`
+	Ext  string `json:"ext,optional"`
+	Size int64  `json:"size,optional"`
+	Path string `json:"path,optional"`
+}
+
+type FileUploadResponse {
+	Identity string `json:"identity"`
+}
+
 service core-api {
 	
 	@doc "用户登录"
@@ -56,5 +69,9 @@ service core-api {
 	@doc "通过验证码注册"
 	@handler UserRegister
 	post /user/code/register(UserRegisterRequest) returns (UserRegisterResponse)
+	
+	@doc "文件上传"
+	@handler FileUpload
+	post /file/upload(FileUploadRequest) returns (FileUploadResponse)
 	
 }
